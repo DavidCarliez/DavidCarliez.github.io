@@ -13,10 +13,50 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	<body>
 		<Header />
 		<main>
-			<h1>{SITE_TITLE}</h1>
-			<p>{SITE_DESCRIPTION}</p>
-			<p>This blog is empty for now. Posts will land here once they are ready.</p>
-			<p><a href={`${import.meta.env.BASE_URL}blog/`}>View the blog</a></p>
+			<section class="hero">
+				<div class="kicker">security research / exploit notes / tooling</div>
+				<h1 class="hero-title">Finding the weird edges in <span class="gradient-text">real software</span>.</h1>
+				<p class="hero-copy">
+					I work on vulnerability research, CVE hunting, AI agent security, sandbox permission models,
+					Windows local privilege escalation, fuzzing, and automation that turns weak leads into tested proof.
+				</p>
+				<div class="actions">
+					<a class="button" href={`${import.meta.env.BASE_URL}blog/`}>Read the blog</a>
+					<a class="button secondary" href="https://github.com/DavidCarliez" target="_blank" rel="noreferrer">GitHub</a>
+				</div>
+			</section>
+
+			<section class="grid" aria-label="Research areas">
+				<article class="card">
+					<h3>CVE hunting</h3>
+					<p>Source-guided audits, advisory-bypass research, patch-gap review, and maintainer-ready reproduction artifacts.</p>
+				</article>
+				<article class="card">
+					<h3>AI and agent security</h3>
+					<p>Command execution, MCP/tool boundaries, sandbox policy, browser automation, and permission UX failures.</p>
+				</article>
+				<article class="card">
+					<h3>Windows LPE and fuzzing</h3>
+					<p>Local privilege escalation research, n-day validation, driver/service attack surface, and harness-driven bug finding.</p>
+				</article>
+			</section>
+
+			<section class="panel">
+				<h2>What lands here</h2>
+				<p>
+					Technical writeups with root cause, exploit primitive, impact boundary, and reproduction notes. No fluff,
+					no mystery screenshots, no marketing gloss. If a bug is weak, the post should say why. If a bug is real,
+					the post should make the primitive obvious.
+				</p>
+				<ul class="meta-list">
+					<li>AI CLI sandboxes</li>
+					<li>MCP security</li>
+					<li>Bug bounty operations</li>
+					<li>Fuzzing notes</li>
+					<li>Windows internals</li>
+					<li>Automation</li>
+				</ul>
+			</section>
 		</main>
 		<Footer />
 	</body>
