@@ -20,7 +20,7 @@ import HeaderLink from './HeaderLink.astro';
 		z-index: 20;
 		margin: 0;
 		padding: 0 1em;
-		background: rgba(6, 9, 18, 0.78);
+		background: color-mix(in srgb, var(--ctp-mantle) 84%, transparent);
 		backdrop-filter: blur(18px);
 		border-bottom: 1px solid var(--border);
 	}
@@ -42,14 +42,14 @@ import HeaderLink from './HeaderLink.astro';
 	}
 	nav a {
 		padding: 1em 0.5em;
-		color: #e2e8f0;
+		color: var(--ctp-text);
 		border-bottom: 2px solid transparent;
 		text-decoration: none;
 	}
 	nav a.active {
 		text-decoration: none;
 		border-bottom-color: var(--accent);
-		color: #ffffff;
+		color: var(--ctp-text);
 	}
 	.internal-links {
 		display: flex;
