@@ -13,22 +13,24 @@ interface Props {
 	image?: ImageMetadata;
 }
 
+const base = import.meta.env.BASE_URL;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-
+const rssURL = new URL(`${base}rss.xml`, Astro.site);
+const sitemapURL = `${base}sitemap-index.xml`;
 const { title, description, image = FallbackImage } = Astro.props;
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="icon" href="/favicon.ico" />
-<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+<link rel="icon" href={`${base}favicon.ico`} />
+<link rel="sitemap" href={sitemapURL} />
 <link
 	rel="alternate"
 	type="application/rss+xml"
 	title={SITE_TITLE}
-	href={new URL('rss.xml', Astro.site)}
+	href={rssURL}
 />
 <meta name="generator" content={Astro.generator} />
 
