@@ -1,348 +1,141 @@
-/* Catppuccin Mocha theme: https://github.com/catppuccin/catppuccin */
-:root {
-	--ctp-rosewater: #f5e0dc;
-	--ctp-flamingo: #f2cdcd;
-	--ctp-pink: #f5c2e7;
-	--ctp-mauve: #cba6f7;
-	--ctp-red: #f38ba8;
-	--ctp-maroon: #eba0ac;
-	--ctp-peach: #fab387;
-	--ctp-yellow: #f9e2af;
-	--ctp-green: #a6e3a1;
-	--ctp-teal: #94e2d5;
-	--ctp-sky: #89dceb;
-	--ctp-sapphire: #74c7ec;
-	--ctp-blue: #89b4fa;
-	--ctp-lavender: #b4befe;
-	--ctp-text: #cdd6f4;
-	--ctp-subtext1: #bac2de;
-	--ctp-subtext0: #a6adc8;
-	--ctp-overlay2: #9399b2;
-	--ctp-overlay1: #7f849c;
-	--ctp-overlay0: #6c7086;
-	--ctp-surface2: #585b70;
-	--ctp-surface1: #45475a;
-	--ctp-surface0: #313244;
-	--ctp-base: #1e1e2e;
-	--ctp-mantle: #181825;
-	--ctp-crust: #11111b;
+@layer theme, base, pagefind, components, utilities;
 
-	--accent: var(--ctp-mauve);
-	--accent-dark: var(--ctp-blue);
-	--accent-hot: var(--ctp-pink);
-	--black: 205, 214, 244;
-	--gray: 166, 173, 200;
-	--gray-light: 49, 50, 68;
-	--gray-dark: 205, 214, 244;
-	--bg: var(--ctp-base);
-	--bg-soft: var(--ctp-mantle);
-	--panel: color-mix(in srgb, var(--ctp-surface0) 72%, transparent);
-	--panel-strong: var(--ctp-surface0);
-	--border: color-mix(in srgb, var(--ctp-surface2) 55%, transparent);
-	--muted: var(--ctp-subtext0);
-	--text: var(--ctp-text);
-	--box-shadow: 0 24px 80px color-mix(in srgb, var(--ctp-crust) 70%, transparent);
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* tailwind to ignore satori generated og-image */
+@source not "../pages/og-image";
+/* config for tailwindcss-typography plugin */
+@config "../../tailwind.config.ts";
+
+/* use a selector-based strategy for dark mode */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* register custom colour properties */
+@property --color-global-bg {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: oklch(98.48% 0 0);
+}
+@property --color-global-text {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: oklch(26.99% 0.0096 235.05);
+}
+@property --color-muted {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: oklch(44.6% 0.03 256.802);
+}
+@property --color-link {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: oklch(55.44% 0.0431 185.69);
+}
+@property --color-accent {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: oklch(55.27% 0.195 19.06);
+}
+@property --color-accent-2 {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: oklch(18.15% 0 0);
+}
+@property --color-quote {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: oklch(55.27% 0.195 19.06);
 }
 
-* {
-	box-sizing: border-box;
+/* you could refactor below to use light-dark(), depending on your target audience */
+@theme {
+	--color-global-bg: oklch(98.48% 0 0);
+	--color-global-text: oklch(26.99% 0.0096 235.05);
+	--color-muted: oklch(44.6% 0.03 256.802);
+	--color-link: oklch(55.44% 0.0431 185.69);
+	--color-accent: oklch(55.27% 0.195 19.06);
+	--color-accent-2: oklch(18.15% 0 0);
+	--color-quote: oklch(55.27% 0.195 19.06);
 }
 
-html {
-	background: var(--ctp-base);
-}
+@layer base {
+	html {
+		color-scheme: light dark;
+		accent-color: var(--color-accent);
+		scrollbar-gutter: stable;
 
-body {
-	font-family: var(--font-atkinson), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-	margin: 0;
-	padding: 0;
-	text-align: left;
-	background:
-		radial-gradient(circle at top left, color-mix(in srgb, var(--ctp-mauve) 16%, transparent), transparent 34rem),
-		radial-gradient(circle at 80% 10%, color-mix(in srgb, var(--ctp-blue) 12%, transparent), transparent 30rem),
-		linear-gradient(180deg, var(--ctp-base) 0%, var(--ctp-mantle) 52%, var(--ctp-crust) 100%);
-	background-attachment: fixed;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	color: var(--ctp-text);
-	font-size: 20px;
-	line-height: 1.7;
-	min-height: 100vh;
-}
+		&[data-theme="light"] {
+			color-scheme: light;
+		}
 
-main {
-	width: 1040px;
-	max-width: calc(100% - 2em);
-	margin: auto;
-	padding: 4em 1em;
-}
+		&[data-theme="dark"] {
+			color-scheme: dark;
+			--color-global-bg: oklch(23.64% 0.0045 248);
+			--color-global-text: oklch(83.54% 0 264);
+			--color-muted: oklch(70.7% 0.022 261.325);
+			--color-link: oklch(70.44% 0.1133 349);
+			--color-accent: oklch(70.91% 0.1415 163.7);
+			--color-accent-2: oklch(94.66% 0 0);
+			--color-quote: oklch(94.8% 0.106 136.49);
+		}
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	margin: 0 0 0.75rem 0;
-	color: var(--ctp-text);
-	line-height: 1.08;
-	letter-spacing: -0.035em;
-}
+		--color-mode-transition-duration: 300ms;
+		--color-mode-transition-easing: ease-in-out;
 
-h1 {
-	font-size: clamp(3rem, 8vw, 6.8rem);
-}
-
-h2 {
-	font-size: clamp(2rem, 4vw, 3.4rem);
-}
-
-h3 {
-	font-size: 1.5em;
-}
-
-h4 {
-	font-size: 1.25em;
-}
-
-h5 {
-	font-size: 1.1em;
-}
-
-strong,
-b {
-	font-weight: 700;
-}
-
-a {
-	color: var(--ctp-blue);
-	text-decoration-color: color-mix(in srgb, var(--ctp-blue) 45%, transparent);
-	text-underline-offset: 0.18em;
-}
-
-a:hover {
-	color: var(--ctp-sky);
-}
-
-p {
-	margin: 0 0 1em 0;
-	color: var(--ctp-subtext0);
-}
-
-.prose p {
-	margin-bottom: 1.4em;
-}
-
-textarea,
-input {
-	font-size: 16px;
-}
-
-table {
-	width: 100%;
-}
-
-img {
-	max-width: 100%;
-	height: auto;
-	border-radius: 16px;
-}
-
-code {
-	padding: 0.15em 0.35em;
-	background-color: var(--ctp-surface0);
-	border: 1px solid var(--border);
-	border-radius: 6px;
-	color: var(--ctp-green);
-}
-
-pre {
-	padding: 1.5em;
-	border-radius: 16px;
-	background: var(--ctp-mantle);
-	border: 1px solid var(--border);
-	overflow-x: auto;
-}
-
-pre > code {
-	all: unset;
-	color: var(--ctp-text);
-}
-
-blockquote {
-	border-left: 4px solid var(--ctp-mauve);
-	padding: 0 0 0 20px;
-	margin: 0 0 1em 0;
-	font-size: 1.15em;
-	color: var(--ctp-subtext1);
-}
-
-hr {
-	border: none;
-	border-top: 1px solid var(--border);
-}
-
-.kicker {
-	display: inline-flex;
-	gap: 0.5rem;
-	align-items: center;
-	margin-bottom: 1.25rem;
-	padding: 0.4rem 0.75rem;
-	border: 1px solid color-mix(in srgb, var(--ctp-mauve) 36%, transparent);
-	border-radius: 999px;
-	background: color-mix(in srgb, var(--ctp-mauve) 12%, transparent);
-	color: var(--ctp-mauve);
-	font-size: 0.78rem;
-	font-weight: 700;
-	letter-spacing: 0.14em;
-	text-transform: uppercase;
-}
-
-.hero {
-	position: relative;
-	padding: clamp(3rem, 8vw, 7rem) 0 3rem;
-}
-
-.hero-title {
-	max-width: 930px;
-	text-wrap: balance;
-}
-
-.gradient-text {
-	background: linear-gradient(90deg, var(--ctp-text) 0%, var(--ctp-mauve) 48%, var(--ctp-blue) 100%);
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
-}
-
-.hero-copy {
-	max-width: 780px;
-	font-size: clamp(1.15rem, 2vw, 1.35rem);
-	color: var(--ctp-subtext1);
-}
-
-.actions {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.9rem;
-	margin-top: 2rem;
-}
-
-.button {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 3rem;
-	padding: 0.75rem 1.05rem;
-	border-radius: 999px;
-	border: 1px solid color-mix(in srgb, var(--ctp-mauve) 42%, transparent);
-	background: color-mix(in srgb, var(--ctp-mauve) 18%, var(--ctp-surface0));
-	color: var(--ctp-text);
-	font-weight: 700;
-	text-decoration: none;
-	box-shadow: var(--box-shadow);
-}
-
-.button:hover {
-	background: color-mix(in srgb, var(--ctp-mauve) 28%, var(--ctp-surface0));
-	color: var(--ctp-text);
-}
-
-.button.secondary {
-	border-color: var(--border);
-	background: var(--ctp-surface0);
-	color: var(--ctp-subtext1);
-}
-
-.grid {
-	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	gap: 1rem;
-	margin: 3rem 0;
-}
-
-.card {
-	position: relative;
-	min-height: 100%;
-	padding: 1.25rem;
-	border: 1px solid var(--border);
-	border-radius: 22px;
-	background: color-mix(in srgb, var(--ctp-surface0) 76%, transparent);
-	box-shadow: var(--box-shadow);
-	overflow: hidden;
-}
-
-.card::before {
-	content: "";
-	position: absolute;
-	inset: 0 0 auto 0;
-	height: 2px;
-	background: linear-gradient(90deg, var(--ctp-mauve), var(--ctp-lavender), var(--ctp-blue));
-	opacity: 0.9;
-}
-
-.card h3 {
-	font-size: 1.1rem;
-	letter-spacing: -0.015em;
-}
-
-.card p {
-	font-size: 0.98rem;
-}
-
-.meta-list {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.6rem;
-	margin: 1.5rem 0 0;
-	padding: 0;
-	list-style: none;
-}
-
-.meta-list li {
-	padding: 0.45rem 0.7rem;
-	border: 1px solid var(--border);
-	border-radius: 999px;
-	background: var(--ctp-surface0);
-	color: var(--ctp-subtext1);
-	font-size: 0.82rem;
-}
-
-.panel {
-	margin: 3rem 0;
-	padding: clamp(1.25rem, 4vw, 2rem);
-	border: 1px solid color-mix(in srgb, var(--ctp-mauve) 30%, transparent);
-	border-radius: 28px;
-	background: color-mix(in srgb, var(--ctp-surface0) 74%, transparent);
-	box-shadow: var(--box-shadow);
-}
-
-.panel p:last-child {
-	margin-bottom: 0;
-}
-
-@media (max-width: 860px) {
-	body {
-		font-size: 18px;
+		transition:
+			--color-global-bg var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+			--color-global-text var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+			--color-muted var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+			--color-link var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+			--color-accent var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+			--color-accent-2 var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+			--color-quote var(--color-mode-transition-duration) var(--color-mode-transition-easing);
 	}
-	main {
-		padding: 2em 1em;
+
+	:target {
+		scroll-margin-block: 5ex;
 	}
-	.grid {
-		grid-template-columns: 1fr;
+
+	@view-transition {
+		navigation: auto;
+	}
+
+	/* Astro image responsive styles, modified from -> https://docs.astro.build/en/guides/images/#responsive-image-styles */
+	:where([data-astro-image]) {
+		object-fit: var(--fit);
+		object-position: var(--pos);
+	}
+	[data-astro-image="full-width"] {
+		width: 100%;
+	}
+	[data-astro-image="constrained"] {
+		max-width: 100%;
 	}
 }
 
-.sr-only {
-	border: 0;
-	padding: 0;
-	margin: 0;
-	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-	clip: rect(1px 1px 1px 1px);
-	clip: rect(1px, 1px, 1px, 1px);
-	clip-path: inset(50%);
-	white-space: nowrap;
+@layer components {
+	@import "./components/admonition.css";
+	@import "./components/github-card.css";
+
+	.cactus-link {
+		@apply hover:decoration-link underline underline-offset-2 hover:decoration-2;
+	}
+
+	.title {
+		@apply text-accent-2 text-2xl font-semibold;
+	}
+}
+
+@utility prose {
+	--tw-prose-body: var(--color-global-text);
+	--tw-prose-bold: var(--color-global-text);
+	--tw-prose-bullets: var(--color-global-text);
+	--tw-prose-code: var(--color-global-text);
+	--tw-prose-headings: var(--color-accent-2);
+	--tw-prose-hr: 0.5px dashed #666;
+	--tw-prose-links: var(--color-global-text);
+	--tw-prose-quotes: var(--color-quote);
+	--tw-prose-th-borders: #666;
 }

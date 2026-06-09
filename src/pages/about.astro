@@ -1,54 +1,30 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_TITLE } from '../consts';
+import PageLayout from "@/layouts/Base.astro";
+
+const meta = {
+	description: "About David Carliez and this security research blog",
+	title: "About",
+};
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={`About | ${SITE_TITLE}`} description="About David Carliez and this security research blog" />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section class="hero">
-				<div class="kicker">about</div>
-				<h1>Security research, but with working proof.</h1>
-				<p class="hero-copy">
-					I am David Carliez, a security researcher and builder focused on practical vulnerability research.
-					My work centers on root cause analysis, exploit primitives, CVE-quality reports, and tooling that keeps research moving.
-				</p>
-			</section>
-
-			<section class="grid">
-				<article class="card">
-					<h3>Research</h3>
-					<p>I look for bugs in real products, especially where recent fixes, permission boundaries, and automation layers create new edge cases.</p>
-				</article>
-				<article class="card">
-					<h3>Proof</h3>
-					<p>I care about denied controls, bypass controls, latest-version validation, and honest impact. Static guesses are not enough.</p>
-				</article>
-				<article class="card">
-					<h3>Automation</h3>
-					<p>I build bots and pipelines for target selection, price monitoring, marketplace scanning, and vulnerability triage.</p>
-				</article>
-			</section>
-
-			<section class="panel">
-				<h2>Current interests</h2>
-				<ul class="meta-list">
-					<li>AI agents and CLI sandboxes</li>
-					<li>MCP and tool permission boundaries</li>
-					<li>Windows local privilege escalation</li>
-					<li>Fuzzing and crash triage</li>
-					<li>Advisory bypasses and patch gaps</li>
-					<li>Bug bounty automation</li>
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
+<PageLayout meta={meta}>
+	<h1 class="title mb-12">About</h1>
+	<div class="prose prose-sm prose-cactus max-w-none">
+		<p>
+			I am David Carliez, a security researcher and builder based near Grimbergen. I work on practical vulnerability research,
+			bug bounty automation, CVE-quality reporting, AI agent security, Windows LPE, and fuzzing.
+		</p>
+		<p>
+			My preference is simple: prove the bug through the real product path. That means denied controls, bypass controls,
+			latest-version validation, honest impact, and artifacts that a maintainer can run.
+		</p>
+		<p>This blog will collect technical notes on:</p>
+		<ul class="list-inside list-disc" role="list">
+			<li>AI CLI sandbox and permission boundary bugs</li>
+			<li>MCP and tool execution security</li>
+			<li>Windows local privilege escalation research</li>
+			<li>Fuzzing, crash triage, and exploit primitives</li>
+			<li>Bug bounty operations and research automation</li>
+		</ul>
+	</div>
+</PageLayout>
