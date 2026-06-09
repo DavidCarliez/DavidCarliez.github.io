@@ -15,9 +15,13 @@ trap cleanup EXIT
 cp -a dist/. "$deploy_dir/"
 touch "$deploy_dir/.nojekyll"
 
-git --git-dir="$repo_root/.git" --work-tree="$deploy_dir" add -A
-git --git-dir="$repo_root/.git" --work-tree="$deploy_dir" commit -m "Deploy site" || true
-git --git-dir="$repo_root/.git" --work-tree="$deploy_dir" branch -M gh-pages
-git --git-dir="$repo_root/.git" --work-tree="$deploy_dir" push -f origin gh-pages
-
-git checkout -B main origin/main >/dev/null 2>&1 || true
+remote_url=$(git remote get-url origin)
+cd "$deploy_dir"
+git init --quiet
+git checkout -b gh-pages >/dev/null
+git config user.name "$(git -C "$repo_root" config user.name || echo 'David Carliez')"
+git config user.email "$(git -C "$repo_root" config user.email || echo '271374756+DavidCarliez@users.noreply.github.com')"
+git add -A
+git commit -m "Deploy site" >/dev/null
+git remote add origin "$remote_url"
+git push -f origin gh-pages
