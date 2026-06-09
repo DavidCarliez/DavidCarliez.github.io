@@ -8,13 +8,46 @@ import { SITE_TITLE } from '../consts';
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`About | ${SITE_TITLE}`} description="About this blog" />
+		<BaseHead title={`About | ${SITE_TITLE}`} description="About David Carliez and this security research blog" />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>About</h1>
-			<p>Security research notes and technical writeups. More soon.</p>
+			<section class="hero">
+				<div class="kicker">about</div>
+				<h1>Security research, but with working proof.</h1>
+				<p class="hero-copy">
+					I am David Carliez, a security researcher and builder focused on practical vulnerability research.
+					My work centers on root cause analysis, exploit primitives, CVE-quality reports, and tooling that keeps research moving.
+				</p>
+			</section>
+
+			<section class="grid">
+				<article class="card">
+					<h3>Research</h3>
+					<p>I look for bugs in real products, especially where recent fixes, permission boundaries, and automation layers create new edge cases.</p>
+				</article>
+				<article class="card">
+					<h3>Proof</h3>
+					<p>I care about denied controls, bypass controls, latest-version validation, and honest impact. Static guesses are not enough.</p>
+				</article>
+				<article class="card">
+					<h3>Automation</h3>
+					<p>I build bots and pipelines for target selection, price monitoring, marketplace scanning, and vulnerability triage.</p>
+				</article>
+			</section>
+
+			<section class="panel">
+				<h2>Current interests</h2>
+				<ul class="meta-list">
+					<li>AI agents and CLI sandboxes</li>
+					<li>MCP and tool permission boundaries</li>
+					<li>Windows local privilege escalation</li>
+					<li>Fuzzing and crash triage</li>
+					<li>Advisory bypasses and patch gaps</li>
+					<li>Bug bounty automation</li>
+				</ul>
+			</section>
 		</main>
 		<Footer />
 	</body>
