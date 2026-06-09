@@ -4,7 +4,7 @@ set -euo pipefail
 repo_root=$(git rev-parse --show-toplevel)
 cd "$repo_root"
 
-npm run build
+pnpm run build
 
 deploy_dir=$(mktemp -d)
 cleanup() {
