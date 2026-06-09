@@ -25,7 +25,7 @@ const posts = (await getCollection('blog')).sort(
 				border: 1px solid var(--border);
 				border-radius: 22px;
 				background: var(--panel);
-				color: rgb(var(--gray));
+				color: var(--ctp-subtext0);
 			}
 			ul.posts {
 				display: flex;
@@ -66,12 +66,12 @@ const posts = (await getCollection('blog')).sort(
 			}
 			.title {
 				margin: 0;
-				color: rgb(var(--black));
+				color: var(--ctp-text);
 				line-height: 1;
 			}
 			.date {
 				margin: 0;
-				color: rgb(var(--gray));
+				color: var(--ctp-subtext0);
 			}
 			ul.posts li a:hover h4,
 			ul.posts li a:hover .date {
