@@ -139,3 +139,9 @@
 	--tw-prose-quotes: var(--color-quote);
 	--tw-prose-th-borders: #666;
 }
+
+/* Remove backtick pseudo-elements that tailwind typography adds around inline code */
+.prose code::before,
+.prose code::after {
+	content: none !important;
+}
