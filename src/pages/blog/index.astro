@@ -1,10 +1,17 @@
 ---
+import FormattedDate from "@/components/FormattedDate.astro";
+import { getAllPosts } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
+import { collectionDateSort } from "@/utils/date";
 
-const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const base = import.meta.env.BASE_URL.endsWith("/")
+	? import.meta.env.BASE_URL
+	: `${import.meta.env.BASE_URL}/`;
+const posts = (await getAllPosts()).sort(collectionDateSort);
 
 const meta = {
-	description: "Security research writeups by David Carliez",
+	description:
+		"Just another Freelance Offensive Security Professional. The posts in this blog are snippets of my work that can be shared publicly.",
 	title: "Blog",
 };
 ---
@@ -14,5 +21,26 @@ const meta = {
 		<h1 class="title">Blog</h1>
 		<a class="text-accent" href={`${base}rss.xml`} target="_blank">RSS</a>
 	</div>
-	<p class="text-muted">No posts yet. First writeup is being prepared.</p>
+	<ul class="flex flex-col gap-8">
+		{
+			posts.map((post) => (
+				<li class="border-muted/30 border-b pb-8 last:border-b-0">
+					<p class="text-muted mb-2 text-sm font-semibold">
+						<FormattedDate date={post.data.publishDate} />
+					</p>
+					<h2 class="mb-2 text-xl font-semibold">
+						<a class="cactus-link" href={`${base}blog/${post.id}/`}>
+							{post.data.title}
+						</a>
+					</h2>
+					<p class="text-muted">{post.data.description}</p>
+					<ul class="mt-3 flex flex-wrap gap-2 text-sm">
+						{post.data.tags.map((tag) => (
+							<li class="border-muted/30 rounded border px-2 py-1">{tag}</li>
+						))}
+					</ul>
+				</li>
+			))
+		}
+	</ul>
 </PageLayout>

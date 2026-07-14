@@ -2,7 +2,7 @@
 import PageLayout from "@/layouts/Base.astro";
 
 const meta = {
-	description: "About David Carliez and this security research blog",
+	description: "Contact David Carliez",
 	title: "About",
 };
 ---
@@ -11,20 +11,24 @@ const meta = {
 	<h1 class="title mb-12">About</h1>
 	<div class="prose prose-sm prose-cactus max-w-none">
 		<p>
-			I am David Carliez, a security researcher and builder based near Grimbergen. I work on practical vulnerability research,
-			bug bounty automation, CVE-quality reporting, AI agent security, Windows LPE, and fuzzing.
+			Email: <a class="cactus-link" href="mailto:david.carliez.consulting@gmail.com"
+				>david.carliez.consulting@gmail.com</a
+			>
 		</p>
-		<p>
-			My preference is simple: prove the bug through the real product path. That means denied controls, bypass controls,
-			latest-version validation, honest impact, and artifacts that a maintainer can run.
-		</p>
-		<p>This blog will collect technical notes on:</p>
-		<ul class="list-inside list-disc" role="list">
-			<li>AI CLI sandbox and permission boundary bugs</li>
-			<li>MCP and tool execution security</li>
-			<li>Windows local privilege escalation research</li>
-			<li>Fuzzing, crash triage, and exploit primitives</li>
-			<li>Bug bounty operations and research automation</li>
-		</ul>
+		<h2>PGP public key</h2>
+		<pre><code>-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mDMEajU1bxYJKwYBBAHaRw8BAQdASGMzCX5IAfuXFKdHbfutZxYpv15Hhlr8dMBS
+4WHocHG0MkRhdmlkIENhcmxpZXogPGRhdmlkLmNhcmxpZXouY29uc3VsdGluZ0Bn
+bWFpbC5jb20+iJYEExYKAD4WIQTw/ZSDL3B5FYyiS0arVn6JWaFShgUCajU1bwIb
+AwUJBaTJsQULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCrVn6JWaFShv1OAP4z
+iahb9VcdkI2Ax32jooQrU9mGrMTzvxVgkHLF8XTkngD+I9OX1vGTnEuUqywBcaIu
+KlLTrGnv89wvNTwdeIlWIAm4OARqNTVvEgorBgEEAZdVAQUBAQdA8Z5jcm1ysS9C
+Poi6QcqO+NewOgdiArBJgengCiLk5RADAQgHiH4EGBYKACYWIQTw/ZSDL3B5FYyi
+S0arVn6JWaFShgUCajU1bwIbDAUJBaTJsQAKCRCrVn6JWaFShh7pAP9M8n2ilHLV
+RCWFfY+/yQi+UFavus46tYJR+RxieIOBAQD9Hhd3PjTJSiivuXC5qMsUOO5KWR6n
+yyPwOQUyTHN6NAE=
+=VGUu
+-----END PGP PUBLIC KEY BLOCK-----</code></pre>
 	</div>
 </PageLayout>

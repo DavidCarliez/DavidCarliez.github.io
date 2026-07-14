@@ -1,12 +1,18 @@
 ---
-import PageLayout from "@/layouts/Base.astro";
+import FormattedDate from "@/components/FormattedDate.astro";
 import SocialList from "@/components/SocialList.astro";
+import { getAllPosts } from "@/data/post";
+import PageLayout from "@/layouts/Base.astro";
+import { collectionDateSort } from "@/utils/date";
 
-const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const base = import.meta.env.BASE_URL.endsWith("/")
+	? import.meta.env.BASE_URL
+	: `${import.meta.env.BASE_URL}/`;
+const posts = (await getAllPosts()).sort(collectionDateSort).slice(0, 5);
 
 const meta = {
 	description:
-		"Security research notes by David Carliez: CVE hunting, AI agent security, sandbox boundaries, Windows LPE, fuzzing, and automation.",
+		"Just another Freelance Offensive Security Professional. The posts in this blog are snippets of my work that can be shared publicly.",
 	title: "Home",
 };
 ---
@@ -16,14 +22,8 @@ const meta = {
 		<h1 class="title mb-8 text-4xl sm:text-5xl">David Carliez</h1>
 		<div class="prose prose-sm prose-cactus max-w-none">
 			<p>
-				Security researcher focused on finding practical bugs in real software: CVE hunting,
-				AI agent security, sandbox permission models, Windows local privilege escalation, fuzzing,
-				and bug bounty automation.
-			</p>
-			<p>
-				This site is for concise technical writeups: root cause, exploit primitive, impact boundary,
-				and reproduction notes. If a bug is weak, the writeup should say why. If a bug is real,
-				the primitive should be obvious.
+				Just another Freelance Offensive Security Professional. The posts in this blog are snippets
+				of my work that can be shared publicly.
 			</p>
 		</div>
 		<div class="mt-8">
@@ -32,29 +32,55 @@ const meta = {
 	</section>
 
 	<section class="mt-16">
-		<h2 class="title mb-6 text-xl">Research areas</h2>
-		<ul class="grid gap-4 sm:grid-cols-2" role="list">
-			<li class="border-muted rounded border p-4">
-				<h3 class="text-accent font-semibold">CVE hunting</h3>
-				<p class="text-muted mt-2">Source-guided audits, advisory bypasses, patch gaps, and maintainer-ready proof.</p>
-			</li>
-			<li class="border-muted rounded border p-4">
-				<h3 class="text-accent font-semibold">AI agent security</h3>
-				<p class="text-muted mt-2">CLI sandboxes, MCP/tool permissions, command execution, and browser automation boundaries.</p>
-			</li>
-			<li class="border-muted rounded border p-4">
-				<h3 class="text-accent font-semibold">Windows LPE</h3>
-				<p class="text-muted mt-2">Local privilege escalation research, n-day validation, drivers, services, and abuse primitives.</p>
-			</li>
-			<li class="border-muted rounded border p-4">
-				<h3 class="text-accent font-semibold">Automation</h3>
-				<p class="text-muted mt-2">Bots and pipelines for triage, monitoring, target selection, and reproducible research artifacts.</p>
-			</li>
+		<h2 class="title text-accent mb-6 text-xl"><a href={`${base}blog/`}>Blog</a></h2>
+		<ul class="flex flex-col gap-6">
+			{
+				posts.map((post) => (
+					<li class="border-muted/30 border-b pb-6 last:border-b-0">
+						<p class="text-muted mb-2 text-sm font-semibold">
+							<FormattedDate date={post.data.publishDate} />
+						</p>
+						<h3 class="mb-2 text-lg font-semibold">
+							<a class="cactus-link" href={`${base}blog/${post.id}/`}>
+								{post.data.title}
+							</a>
+						</h3>
+						<p class="text-muted">{post.data.description}</p>
+					</li>
+				))
+			}
 		</ul>
 	</section>
 
 	<section class="mt-16">
-		<h2 class="title text-accent mb-6 text-xl"><a href={`${base}blog/`}>Blog</a></h2>
-		<p class="text-muted">No posts yet. First writeup is being prepared.</p>
+		<h2 class="title mb-6 text-xl">Research areas</h2>
+		<ul class="grid gap-4 sm:grid-cols-2" role="list">
+			<li class="border-muted rounded border p-4">
+				<h3 class="text-accent font-semibold">Vulnerability research</h3>
+				<p class="text-muted mt-2">
+					Source-guided audits, patch diffing, advisory bypasses, and maintainer-ready proof.
+				</p>
+			</li>
+			<li class="border-muted rounded border p-4">
+				<h3 class="text-accent font-semibold">AI agent security</h3>
+				<p class="text-muted mt-2">
+					CLI sandboxes, MCP/tool permissions, command execution, and browser automation boundaries.
+				</p>
+			</li>
+			<li class="border-muted rounded border p-4">
+				<h3 class="text-accent font-semibold">Windows LPE</h3>
+				<p class="text-muted mt-2">
+					Local privilege escalation research, n-day validation, drivers, services, and abuse
+					primitives.
+				</p>
+			</li>
+			<li class="border-muted rounded border p-4">
+				<h3 class="text-accent font-semibold">Exploit tooling</h3>
+				<p class="text-muted mt-2">
+					Harnesses, fuzzing setups, diff scripts, and reproducible artifacts that turn bugs into
+					proof.
+				</p>
+			</li>
+		</ul>
 	</section>
 </PageLayout>

@@ -6,7 +6,7 @@ export const siteConfig: SiteConfig = {
 	title: "David Carliez",
 	author: "David Carliez",
 	description:
-		"Security researcher focused on CVE hunting, AI agent security, sandbox boundaries, Windows LPE, fuzzing, and bug bounty automation.",
+		"Just another Freelance Offensive Security Professional. The posts in this blog are snippets of my work that can be shared publicly.",
 	lang: "en-GB",
 	ogLocale: "en_GB",
 	date: {
