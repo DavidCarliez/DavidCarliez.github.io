@@ -44,10 +44,10 @@ capability check; its practical use in this chain is a UAC bypass.
 I compared the vulnerable and updated binaries and ran the same trigger on both
 systems. These are the builds I validated:
 
-| State | OS build | `Windows.UI.Storage.dll` | SHA-256 |
-|---|---:|---:|---|
-| Vulnerable | 26200.8737 | 10.0.26100.8737 | `5B7673DF92A3B95B7D9D57AA3955C22CFBF7B632E91960C41DDB69BD8F530206` |
-| Updated | 26200.8875 | 10.0.26100.8875 | `C6D16F8D332190A48FA7CD766C672DD6FFB3C8EF341B0C97753389E8977C2F80` |
+| State | OS build | `Windows.UI.Storage.dll` |
+|---|---:|---:|
+| Vulnerable | 26200.8737 | 10.0.26100.8737 |
+| Updated | 26200.8875 | 10.0.26100.8875 |
 
 On build 26200.8737, the factory accepted the zero-capability caller and a
 protected association was created. On build 26200.8875, the same call returned
