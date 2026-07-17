@@ -145,3 +145,15 @@
 .prose code::after {
 	content: none !important;
 }
+
+/* Centre the fixed-width exploit-chain diagram without affecting other code blocks. */
+#the-complete-exploit-chain + p + .expressive-code pre > code {
+	flex: 0 0 auto;
+	width: max-content;
+	min-width: max-content;
+	margin-inline: auto;
+}
+
+#the-complete-exploit-chain + p + .expressive-code .ec-line .code {
+	padding-inline: 1rem;
+}
