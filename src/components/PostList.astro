@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "@/components/FormattedDate.astro";
+
+interface Props {
+	posts: CollectionEntry<"post">[];
+	highlightLatest?: boolean;
+}
+const { posts, highlightLatest = false } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<ul class="post-list">
+	{
+		posts.map((post, index) => (
+			<li class:list={["post-row", { "post-latest": highlightLatest && index === 0 }]}>
+				<div class="post-date">
+					{highlightLatest && index === 0 && <span class="latest-label">Latest</span>}
+					<FormattedDate date={post.data.publishDate} />
+				</div>
+				<div>
+					<h2>
+						<a href={`${base}/blog/${post.id}/`}>{post.data.title}</a>
+					</h2>
+					<p>{post.data.description}</p>
+				</div>
+			</li>
+		))
+	}
+</ul>

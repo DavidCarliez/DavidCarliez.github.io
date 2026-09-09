@@ -143,7 +143,7 @@
 /* Remove backtick pseudo-elements that tailwind typography adds around inline code */
 .prose code::before,
 .prose code::after {
-	content: none !important;
+	content: none;
 }
 
 /* Centre the fixed-width exploit-chain diagram without affecting other code blocks. */

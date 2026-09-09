@@ -1,48 +1,31 @@
-{/* Inlined to avoid FOUC. This is a parser blocking script. */}
 <script is:inline>
-	const lightModePref = window.matchMedia("(prefers-color-scheme: light)");
-
-	function getUserPref() {
-		const storedTheme = typeof localStorage !== "undefined" && localStorage.getItem("theme");
-		return storedTheme || (lightModePref.matches ? "light" : "dark");
-	}
-
-	function setTheme(newTheme) {
-		if (newTheme !== "light" && newTheme !== "dark") {
-			return console.warn(
-				`Invalid theme value '${newTheme}' received. Expected 'light' or 'dark'.`,
-			);
+	(() => {
+		function getTheme() {
+			try {
+				return localStorage.getItem("theme") === "light" ? "light" : "dark";
+			} catch {
+				return "dark";
+			}
 		}
-
-		const root = document.documentElement;
-
-		// root already set to newTheme, exit early
-		if (newTheme === root.getAttribute("data-theme")) {
-			return;
+		function apply(theme) {
+			document.documentElement.dataset.theme = theme;
+			document
+				.querySelector('meta[name="theme-color"]')
+				?.setAttribute("content", theme === "dark" ? "#121715" : "#f6f9f8");
+			document.dispatchEvent(new CustomEvent("theme-applied"));
 		}
-
-		root.setAttribute("data-theme", newTheme);
-
-		if (typeof localStorage !== "undefined") {
-			localStorage.setItem("theme", newTheme);
-		}
-	}
-
-	// initial setup
-	setTheme(getUserPref());
-
-	// listen for pageshow event, browser restored page from bfcache
-	window.addEventListener("pageshow", (e) => {
-		if (e.persisted) {
-			setTheme(getUserPref());
-		}
-	});
-
-	// listen for theme-change custom event, fired in src/components/ThemeToggle.astro
-	document.addEventListener("theme-change", (e) => {
-		setTheme(e.detail.theme);
-	});
-
-	// listen for prefers-color-scheme change.
-	lightModePref.addEventListener("change", (e) => setTheme(e.matches ? "light" : "dark"));
+		apply(getTheme());
+		document.addEventListener("theme-change", (e) => {
+			const theme = e.detail.theme;
+			if (theme !== "dark" && theme !== "light") return;
+			try {
+				localStorage.setItem("theme", theme);
+			} catch {}
+			apply(theme);
+		});
+		window.addEventListener("pageshow", () => apply(getTheme()));
+		window.addEventListener("storage", (e) => {
+			if (e.key === "theme") apply(getTheme());
+		});
+	})();
 </script>

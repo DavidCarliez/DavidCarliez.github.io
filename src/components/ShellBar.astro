@@ -1,0 +1,41 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const path = Astro.url.pathname.slice(base.length);
+const slug = path.split("/").filter(Boolean);
+const command =
+	slug[0] === "blog" && slug[1]
+		? `cat ${slug[1]}.md`
+		: slug[0] === "contact"
+			? "cat pgp.md"
+			: slug[0] === "blog"
+				? "ls posts/"
+				: slug.length
+					? `cd /${slug.join("/")}`
+					: "ls research/";
+---
+
+<div class="shell-bar">
+	<span class="shell-user" aria-hidden="true">david@research</span>
+	<span class="shell-directory" aria-hidden="true">~/notes</span>
+	<span class="shell-command" data-command={command}>
+		<span class="sr-only">{command}</span>
+		<span aria-hidden="true"
+			>$ <span data-typed>{command}</span><span class="shell-cursor"></span></span
+		>
+	</span>
+</div>
+<script>
+	const element = document.querySelector<HTMLElement>("[data-command]");
+	const output = element?.querySelector<HTMLElement>("[data-typed]");
+	if (element && output && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+		const command = element.dataset.command || "";
+		output.textContent = "";
+		let index = 0;
+		const delay = Math.max(12, Math.min(42, 1200 / command.length));
+		const type = () => {
+			output.textContent = command.slice(0, ++index);
+			if (index < command.length) setTimeout(type, delay);
+		};
+		setTimeout(type, 140);
+	}
+</script>

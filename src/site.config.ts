@@ -25,12 +25,12 @@ export const menuLinks: { path: string; title: string }[] = [
 		title: "Home",
 	},
 	{
-		path: "/about/",
-		title: "About",
-	},
-	{
 		path: "/blog/",
 		title: "Blog",
+	},
+	{
+		path: "/contact/",
+		title: "Contact",
 	},
 ];
 
@@ -55,6 +55,6 @@ export const expressiveCodeOptions: AstroExpressiveCodeOptions = {
 		}
 		return `[data-theme="${theme.name}"]`;
 	},
-	themes: ["dracula", "github-light"],
+	themes: ["github-dark", "github-light"],
 	useThemedScrollbars: false,
 };

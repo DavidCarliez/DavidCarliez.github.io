@@ -1,6 +1,6 @@
 ---
-import FormattedDate from "@/components/FormattedDate.astro";
-import SocialList from "@/components/SocialList.astro";
+import PostList from "@/components/PostList.astro";
+import ShellBar from "@/components/ShellBar.astro";
 import { getAllPosts } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 import { collectionDateSort } from "@/utils/date";
@@ -17,70 +17,18 @@ const meta = {
 };
 ---
 
-<PageLayout meta={meta}>
+<PageLayout meta={meta} showShell={false}>
+	<section class="editorial-intro" aria-labelledby="intro-title">
+		<ShellBar />
+		<h1 id="intro-title">Security research, from the inside out.</h1>
+		<p>Vulnerability research, offensive security, and the boundaries of AI tools.</p>
+	</section>
 	<section>
-		<h1 class="title mb-8 text-4xl sm:text-5xl">David Carliez</h1>
-		<div class="prose prose-sm prose-cactus max-w-none">
-			<p>
-				Just another Freelance Offensive Security Professional. The posts in this blog are snippets
-				of my work that can be shared publicly.
-			</p>
+		<div class="section-heading">
+			<h2>Latest research</h2><div class="section-links">
+				<a href={`${base}rss.xml`}>Subscribe via RSS</a><a href={`${base}blog/`}>All posts ↗</a>
+			</div>
 		</div>
-		<div class="mt-8">
-			<SocialList />
-		</div>
-	</section>
-
-	<section class="mt-16">
-		<h2 class="title text-accent mb-6 text-xl"><a href={`${base}blog/`}>Blog</a></h2>
-		<ul class="flex flex-col gap-6">
-			{
-				posts.map((post) => (
-					<li class="border-muted/30 border-b pb-6 last:border-b-0">
-						<p class="text-muted mb-2 text-sm font-semibold">
-							<FormattedDate date={post.data.publishDate} />
-						</p>
-						<h3 class="mb-2 text-lg font-semibold">
-							<a class="cactus-link" href={`${base}blog/${post.id}/`}>
-								{post.data.title}
-							</a>
-						</h3>
-						<p class="text-muted">{post.data.description}</p>
-					</li>
-				))
-			}
-		</ul>
-	</section>
-
-	<section class="mt-16">
-		<h2 class="title mb-6 text-xl">Research areas</h2>
-		<ul class="grid gap-4 sm:grid-cols-2" role="list">
-			<li class="border-muted rounded border p-4">
-				<h3 class="text-accent font-semibold">Vulnerability research</h3>
-				<p class="text-muted mt-2">
-					Source-guided audits, patch diffing, advisory bypasses, and maintainer-ready proof.
-				</p>
-			</li>
-			<li class="border-muted rounded border p-4">
-				<h3 class="text-accent font-semibold">AI agent security</h3>
-				<p class="text-muted mt-2">
-					CLI sandboxes, MCP/tool permissions, command execution, and browser automation boundaries.
-				</p>
-			</li>
-			<li class="border-muted rounded border p-4">
-				<h3 class="text-accent font-semibold">Windows LPE</h3>
-				<p class="text-muted mt-2">
-					Local privilege escalation research, n-day validation, drivers, services, and abuse
-					primitives.
-				</p>
-			</li>
-			<li class="border-muted rounded border p-4">
-				<h3 class="text-accent font-semibold">Exploit tooling</h3>
-				<p class="text-muted mt-2">
-					Harnesses, fuzzing setups, diff scripts, and reproducible artifacts that turn bugs into
-					proof.
-				</p>
-			</li>
-		</ul>
+		<PostList posts={posts} highlightLatest />
 	</section>
 </PageLayout>

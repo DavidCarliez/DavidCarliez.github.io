@@ -1,26 +1,17 @@
 ---
-import { menuLinks, siteConfig } from "@/site.config";
+import { siteConfig } from "@/site.config";
 
-const year = new Date().getFullYear();
-const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-const withBase = (path: string) => `${base}${path.replace(/^\//, "")}`;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
-<footer
-	class="text-muted mt-auto flex w-full flex-col items-center justify-center gap-y-2 pt-20 pb-4 text-center align-top font-semibold sm:flex-row sm:justify-between sm:text-xs"
->
-	<div class="me-0 sm:me-4">
-		&copy; {siteConfig.author}
-		{year}.<span class="inline-block">&nbsp;🚀&nbsp;{siteConfig.title}&nbsp;🌵&nbsp;</span>
+<footer class="site-footer">
+	<div class="site-container footer-inner">
+		<span>© {new Date().getFullYear()} {siteConfig.author}</span>
+		<span class="footer-note">Independent security research</span>
+		<div>
+			<a href="https://github.com/DavidCarliez" rel="me">GitHub</a><a href={`${base}/rss.xml`}
+				>RSS</a
+			><a href="#main">Back to top ↑</a>
+		</div>
 	</div>
-	<nav aria-labelledby="footer_links" class="sm:divide-muted flex gap-x-2 sm:gap-x-0 sm:divide-x">
-		<p id="footer_links" class="sr-only">More on this site</p>
-		{
-			menuLinks.map((link) => (
-				<a class="hover:text-global-text px-4 py-2 hover:underline sm:py-0" href={withBase(link.path)}>
-					{link.title}
-				</a>
-			))
-		}
-	</nav>
 </footer>

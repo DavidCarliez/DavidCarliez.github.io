@@ -2,53 +2,35 @@
 import BaseHead from "@/components/BaseHead.astro";
 import Footer from "@/components/layout/Footer.astro";
 import Header from "@/components/layout/Header.astro";
+import ShellBar from "@/components/ShellBar.astro";
 import SkipLink from "@/components/SkipLink.astro";
 import ThemeProvider from "@/components/ThemeProvider.astro";
 import { siteConfig } from "@/site.config";
 import type { SiteMeta } from "@/types";
-
+import "@/styles/research.css";
 interface Props {
 	meta: SiteMeta;
+	showShell?: boolean;
 }
-
 const {
+	showShell = true,
 	meta: { articleDate, description = siteConfig.description, ogImage, title },
 } = Astro.props;
 ---
 
-<html class="scroll-smooth" lang={siteConfig.lang}>
+<html lang={siteConfig.lang} data-theme="dark" data-palette="teal">
 	<head>
 		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
+		<meta name="theme-color" content="#121715" />
 		<ThemeProvider />
 	</head>
-	<body
-		class="bg-global-bg text-global-text mx-auto flex min-h-screen max-w-3xl flex-col px-4 pt-16 font-mono text-sm font-normal antialiased sm:px-8"
-	>
-		<SkipLink />
-		<Header />
-		<main id="main">
-			<slot />
+	<body class="research-site">
+		<SkipLink /><Header />
+		<main id="main" class="site-container">
+			<div class="page-content">
+				{showShell && <ShellBar />}<slot />
+			</div>
 		</main>
 		<Footer />
-		<script is:inline type="speculationrules">
-			{
-				"prefetch": [
-					{
-						"where": {
-							"href_matches": "/github-blog/*"
-						},
-						"eagerness": "immediate"
-					}
-				],
-				"prerender": [
-					{
-						"where": {
-							"href_matches": "/github-blog/*"
-						},
-						"eagerness": "moderate"
-					}
-				]
-			}
-		</script>
 	</body>
 </html>
