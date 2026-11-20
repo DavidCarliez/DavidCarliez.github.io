@@ -25,6 +25,18 @@ const {
 		<ThemeProvider />
 	</head>
 	<body class="research-site">
+		{
+			import.meta.env.PROD && siteConfig.gtmId && (
+				<noscript>
+					<iframe
+						src={`https://www.googletagmanager.com/ns.html?id=${siteConfig.gtmId}`}
+						height="0"
+						width="0"
+						style="display:none;visibility:hidden"
+					/>
+				</noscript>
+			)
+		}
 		<SkipLink /><Header />
 		<main id="main" class="site-container">
 			<div class="page-content">

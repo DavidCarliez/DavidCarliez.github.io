@@ -7,6 +7,7 @@ export const siteConfig: SiteConfig = {
 	author: "David Carliez",
 	description:
 		"Just another Freelance Offensive Security Professional. The posts in this blog are snippets of my work that can be shared publicly.",
+	gtmId: "GTM-WXT9BW5G",
 	lang: "en-GB",
 	ogLocale: "en_GB",
 	date: {
