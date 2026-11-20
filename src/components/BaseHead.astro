@@ -53,6 +53,7 @@ const socialImageURL = new URL(ogImage ? ogImage : `${base}social-card.png`, Ast
 <meta content={socialImageURL} property="og:image" />
 <meta content="1200" property="og:image:width" />
 <meta content="630" property="og:image:height" />
+<meta content={title} property="og:image:alt" />
 {
 	articleDate && (
 		<>
@@ -68,6 +69,7 @@ const socialImageURL = new URL(ogImage ? ogImage : `${base}social-card.png`, Ast
 <meta content={title} property="twitter:title" />
 <meta content={description} property="twitter:description" />
 <meta content={socialImageURL} property="twitter:image" />
+<meta content={title} name="twitter:image:alt" />
 
 {/* Sitemap */}
 <link href={`${base}sitemap-index.xml`} rel="sitemap" />

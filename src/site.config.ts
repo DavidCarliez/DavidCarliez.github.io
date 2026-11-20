@@ -2,7 +2,7 @@ import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
 import type { SiteConfig } from "@/types";
 
 export const siteConfig: SiteConfig = {
-	url: "https://davidcarliez.github.io",
+	url: "https://dc-cybersec.com",
 	title: "David Carliez",
 	author: "David Carliez",
 	description:
