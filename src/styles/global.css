@@ -146,6 +146,12 @@
 	content: none;
 }
 
+/* Tighten the vertical rhythm between list items. */
+.prose :where(ul, ol) > li {
+	margin-top: 0.25em;
+	margin-bottom: 0.25em;
+}
+
 /* Centre the fixed-width exploit-chain diagram without affecting other code blocks. */
 #the-complete-exploit-chain + p + .expressive-code pre > code {
 	flex: 0 0 auto;
